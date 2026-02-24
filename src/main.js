@@ -45,7 +45,7 @@ formEl.addEventListener('submit', async e => {
 
         const totalPages = Math.ceil(totalHits / 15);
 
-        if (totalHits > 1) {
+        if (currentPage < totalPages) {
             showLoadMoreButton();
         } else {
             iziToast.info({
@@ -75,12 +75,12 @@ loadMoreBtn.addEventListener('click', async () => {
 
         const totalPages = Math.ceil(totalHits / 15);
 
-        if (currentPage >= totalPages) {
+        if (currentPage < totalPages) {
+            showLoadMoreButton();
+        } else {
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
-            });
-        } else {
-            showLoadMoreButton();
+            }); 
         }
 
         const card = document.querySelector('.gallery-item');
@@ -90,6 +90,7 @@ loadMoreBtn.addEventListener('click', async () => {
             top: cardHeight * 2,
             behavior: 'smooth',
         });
+        
     } catch (error) {
         iziToast.error({
             message: "Error fetching images"
