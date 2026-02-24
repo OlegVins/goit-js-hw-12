@@ -31,7 +31,7 @@ formEl.addEventListener('submit', async e => {
     showLoader();
 
     try {
-        const data = await getImagesByQuery(query, currentPage);
+        const data = await getImagesByQuery(currentQuery, currentPage);
         totalHits = data.totalHits;
 
         if (!data.hits.length) {
@@ -43,8 +43,14 @@ formEl.addEventListener('submit', async e => {
         
         createGallery(data.hits);
 
-        if (totalHits > 15) {
+        const totalPages = Math.ceil(totalHits / 15);
+
+        if (totalHits > 1) {
             showLoadMoreButton();
+        } else {
+            iziToast.info({
+                message: "We're sorry, but you've reached the end of search results.",
+            });
         }
 
     } catch (error) {
