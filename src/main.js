@@ -23,6 +23,9 @@ formEl.addEventListener('submit', async e => {
     const query = e.target.elements['search-text'].value.trim();
     if (!query) return;
 
+    currentQuery = query;
+    currentPage = 1;
+
     clearGallery();
     hideLoadMoreButton();
     showLoader();
